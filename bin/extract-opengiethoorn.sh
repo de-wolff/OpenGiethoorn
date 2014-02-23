@@ -1,4 +1,10 @@
 #!/bin/sh
+#
+# Copyright (C) 2014 JH de Wolff (jaap@de-wolff.org)
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
 
 GIETHOORN_DIR="/usr/share/open-giethoorn"
 GIETHOORN_CONF_DIR="/etc/open-giethoorn"
