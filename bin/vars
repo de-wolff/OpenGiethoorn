@@ -1,0 +1,18 @@
+
+GIETHOORN_DIR="/usr/share/open-giethoorn"
+GIETHOORN_CONF_DIR=/etc/open-giethoorn
+GIETHOORN_DATA_DIR=$GIETHOORN_DIR/data
+GIETHOORN_BIN_DIR=$GIETHOORN_DIR/bin
+OPENVPN_DIR="/etc/openvpn"
+
+PID_FILE=/var/run/open-giethoorn.pid
+if [ -f /etc/config/opengiethoorn ]; then
+if [ `uci show opengiethoorn| grep opengiethoorn.master` ]; then 
+VAR_MASTERNAME=`uci get opengiethoorn.master`
+fi
+if [ `uci show opengiethoorn| grep opengiethoorn.server` ]; then 
+VAR_COMMONNAME=`uci get opengiethoorn.server`
+fi
+fi
+CLIENTFILE=$GIETHOORN_DATA_DIR/client.txt
+VAR_COUNT=0

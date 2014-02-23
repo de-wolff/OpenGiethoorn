@@ -1,0 +1,16 @@
+=openvpn
+.enabled=1
+.client=1
+.dev=tapVAR_COUNT
+.proto=udp
+.remote=VAR_HOST
+.resolv_retry=infinite
+.nobind=1
+.persist_key=1
+.ca=/etc/openvpn/ca.crt
+.cert=/etc/openvpn/VAR_SELF.crt
+.key=/etc/openvpn/VAR_SELF.key
+.ns_cert_type=server
+.comp_lzo=yes
+.status=/tmp/openvpn-VAR_COMMONNAME.log
+

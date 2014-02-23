@@ -1,0 +1,15 @@
+=openvpn
+.enable=1
+.port=1194
+.proto=udp
+.dev=tapVAR_COUNT
+.ca=/etc/openvpn/ca.crt
+.cert=/etc/openvpn/VAR_COMMONNAME-server.crt
+.key=/etc/openvpn/VAR_COMMONNAME-server.key
+.dh=/etc/openvpn/dh1024.pem
+.ifconfig_pool_persist=/tmp/ipp.txt
+.comp_lzo=yes
+.persist_key=1
+.persist_tun=1
+.status=/tmp/openvpn-server.log
+
