@@ -16,7 +16,7 @@ GIETHOORN_DATA_DIR=$GIETHOORN_DIR/data
 OPENVPN_DIR="/etc/openvpn"
 
 OLD_DIR=`pwd`
-cd $GIETHOORN_DATA_DIR
+cd $GIETHOORN_CONF_DIR
 # find the openvpn-easy-rsa key dir.
 dummy=$(opkg files openvpn-easy-rsa | grep index.txt)
 RSAKEY_DIR=${dummy%/*}

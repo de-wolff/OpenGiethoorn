@@ -105,9 +105,9 @@ fi
 # add the nameserver of the remote domain:
 for i in $( uci show dhcp | grep resolvfile= ) 
 do
-RESOLV_FILE=$( awk -F= '{ print $1 }' )
+RESOLV_FILE=$( echo $i | awk -F= '{ print $2 }' )
 if [ ! "$( grep $VAR_COMMONNAME.local $RESOLV_FILE )" ]; then
-echo # added by open-giethoorn >> $RESOLV_FILE
+echo "# added by open-giethoorn" >> $RESOLV_FILE
 echo nameserver $VAR_CLIENT_IP >> $RESOLV_FILE
 echo search $VAR_COMMONNAME.local >> $RESOLV_FILE
 fi

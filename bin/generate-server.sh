@@ -74,7 +74,7 @@ uci commit network
 #set unique domain name
 for i in $( uci show dhcp | grep domain= ) 
 do
-uci set $(awk -F= '{ print $0 }')=$VAR_COMMONNAME.local
+uci set $( echo $i | awk -F= '{ print $0 }' )=$VAR_COMMONNAME.local
 done 
 
 # open firewall for openvpn traffic

@@ -54,8 +54,8 @@ fi
 done
 }
 
-create-client() {
-// the client name is the argument
+create_client() {
+# the client name is the argument
 VAR_CLIENTNAME=$1
 
 if [ ! $VAR_CLIENTNAME ]; then
@@ -89,6 +89,7 @@ KEY_CN=`echo "$VAR_COMMONNAME"-server`
 done
 
 
+cd $GIETHOORN_CONF_DIR
 mkdir -p $GIETHOORN_CONF_DIR/open.vpn
 mkdir $GIETHOORN_CONF_DIR/open.vpn/rsa
 echo $VAR_CLIENTNAME,$VAR_COUNTRY,$VAR_PROVINCE,$VAR_CITY,$VAR_ORG,$VAR_OU,$VAR_EMAIL > $GIETHOORN_CONF_DIR/open.vpn/key_data.txt
@@ -105,10 +106,10 @@ rm -rf open.vpn/*
 
 if [ "$1" ]; then
 for i in $@; do
-create-client $i
+create_client $i
 done
 else
-create-client
+create_client
 fi
 
 
