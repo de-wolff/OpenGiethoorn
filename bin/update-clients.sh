@@ -9,7 +9,7 @@
 # See /LICENSE for more information.
 #
 
-. vars
+. /usr/share/open-giethoorn/bin/vars
 
 # wait, to let all clients start
 if [ $1 ]; then

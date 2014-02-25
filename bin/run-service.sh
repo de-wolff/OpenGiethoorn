@@ -9,7 +9,7 @@
 # See /LICENSE for more information.
 #
 
-. vars
+. /usr/share/open-giethoorn/bin/vars
 
 kill_processes() {
 for proc in `jobs -p`

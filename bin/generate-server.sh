@@ -9,7 +9,7 @@
 # See /LICENSE for more information.
 #
 
-. vars
+. /usr/share/open-giethoorn/bin/vars
 
 write_firewall_openvpn_rule() {
 if [ ! "$(uci show firewall | grep rule.*name=openvpn)" ]; then

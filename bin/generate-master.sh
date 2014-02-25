@@ -12,6 +12,7 @@
 # arg1 = common name of the master
 # arg2 = external ip address / host name of this router
 
+. /usr/share/open-giethoorn/bin/vars
 get_var() {
 response=
 while [ ! "$response" ]; do
@@ -85,12 +86,6 @@ dummy=$(opkg files openvpn-easy-rsa | grep index.txt)
 RSAKEY_DIR=${dummy%/*}
 
 
-GIETHOORN_DIR="/usr/share/open-giethoorn"
-GIETHOORN_CONF_DIR=/etc/open-giethoorn
-GIETHOORN_DATA_DIR=$GIETHOORN_DIR/data
-GIETHOORN_BIN_DIR=$GIETHOORN_DIR/bin
-OPENVPN_DIR="/etc/openvpn"
-
 mkdir -p $GIETHOORN_CONF_DIR
 KEY_SIZE=1024
 
@@ -106,9 +101,9 @@ fi
 
 IMPORT="$GIETHOORN_CONF_DIR/key_data.txt"
 
-if [ ! -f $IMPORT; then
-
+if [ ! -f $IMPORT ]; then
 $GIETHOORN_BIN_DIR/generate-key-info.sh $1
+fi
 
 
 for i in `cat ${IMPORT}`
@@ -156,7 +151,7 @@ cp $RSAKEY_DIR/dh1024.pem $OPENVPN_DIR/
 cp $RSAKEY_DIR/*.key $OPENVPN_DIR/
 cp $RSAKEY_DIR/*.crt $OPENVPN_DIR/
 
-$GIETHOORN_CONF_DIR/generate-server.sh 15 $VAR_COMMONNAME $VAR_COMMONNAME $HOST
+$GIETHOORN_BIN_DIR/generate-server.sh 15 $VAR_COMMONNAME $VAR_COMMONNAME $HOST
 uci set opengiethoorn.count=0
 uci commit opengiethoorn
 

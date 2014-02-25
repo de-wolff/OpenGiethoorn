@@ -9,7 +9,7 @@
 # See /LICENSE for more information.
 #
 
-. vars
+. /usr/share/open-giethoorn/bin/vars
 
 VAR_COMMONNAME=`uci get opengiethoorn.server`
 IMPORT="$GIETHOORN_CONF_DIR/client.txt"

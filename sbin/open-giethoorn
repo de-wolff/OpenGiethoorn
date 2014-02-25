@@ -9,10 +9,7 @@
 # See /LICENSE for more information.
 #
 
-GIETHOORN_DIR="/usr/share/open-giethoorn"
-GIETHOORN_BIN_DIR=$GIETHOORN_DIR/bin
-GIETHOORN_DATA_DIR=$GIETHOORN_DIR/data
-GIETHOORN_CONF_DIR=/etc/open-giethoorn
+. /usr/share/open-giethoorn/bin/vars
 
 CUR_DIR=$(pwd)
 usage() {

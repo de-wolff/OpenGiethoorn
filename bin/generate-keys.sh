@@ -9,7 +9,7 @@
 # See /LICENSE for more information.
 #
 
-. vars
+. /usr/share/open-giethoorn/bin/vars
 
 if [ ! "$(opkg list | grep openvpn-easy-rsa)" ]; then
 opkg update

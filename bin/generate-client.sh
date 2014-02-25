@@ -9,7 +9,7 @@
 # See /LICENSE for more information.
 #
 
-. vars
+. /usr/share/open-giethoorn/bin/vars
 
 write_firewall_tap_forwarding() {
 if [ ! "$(uci show firewall | grep forwarding.*dst=tap$1 )" ]; then
