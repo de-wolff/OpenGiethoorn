@@ -1,6 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2014 JH de Wolff (jaap@de-wolff.org)
+# Copyright (C) 2014 JH de Wolff 
+#
+# This file is a part of the open-giethoorn project 
+#	http://github.com/de-wolff/OpenGiethoorn
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -14,10 +17,6 @@ do
 kill -9 $proc
 done
 }
-
-GIETHOORN_DIR="/usr/share/open-giethoorn"
-GIETHOORN_CONF_DIR="/etc/open-giethoorn"
-GIETHOORN_BIN_DIR=$GIETHOORN_DIR/bin
 
 OPENVPN_DIR="/etc/openvpn"
 PID_FILE=/var/run/opengiethoorn.pid

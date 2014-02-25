@@ -1,10 +1,16 @@
 #!/bin/sh
 #
-# Copyright (C) 2014 JH de Wolff (jaap@de-wolff.org)
+# Copyright (C) 2014 JH de Wolff 
+#
+# This file is a part of the open-giethoorn project 
+#	http://github.com/de-wolff/OpenGiethoorn
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+
+# arg1 = common name of the master
+# arg2 = external ip address / host name of this router
 
 get_var() {
 response=
@@ -88,18 +94,22 @@ OPENVPN_DIR="/etc/openvpn"
 mkdir -p $GIETHOORN_CONF_DIR
 KEY_SIZE=1024
 
-
-
+if [ "$2" ]; then
+HOST=$2
+else
 HOST=$(ifconfig `route | grep default | awk '{print $8}'` | grep "inet " | awk '{print $2}' | awk -F: '{print $2}')
 
 get_var HOST "On what ip address you can be reached from the internet or \n"\
 "(better) what is the hostname your router can be reached on the internet?\n"\
 "[$HOST]"
-
-
-$GIETHOORN_BIN_DIR/generate-key-info.sh
+fi
 
 IMPORT="$GIETHOORN_CONF_DIR/key_data.txt"
+
+if [ ! -f $IMPORT; then
+
+$GIETHOORN_BIN_DIR/generate-key-info.sh $1
+
 
 for i in `cat ${IMPORT}`
 do
@@ -112,6 +122,11 @@ KEY_OU=`echo $i | awk -F, '{print $6}'`
 KEY_EMAIL=`echo $i | awk -F, '{print $7}'`
 KEY_PASSWORD=""
 KEY_CN=`echo "$VAR_COMMONNAME"-server`
+
+if [ "$1" ]; then
+VAR_COMMONNAME=$1
+fi
+
 done
 
 RSA_VARS=$(opkg files openvpn-easy-rsa | grep vars)

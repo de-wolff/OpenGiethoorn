@@ -1,6 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2014 JH de Wolff (jaap@de-wolff.org)
+# Copyright (C) 2014 JH de Wolff 
+#
+# This file is a part of the open-giethoorn project 
+#	http://github.com/de-wolff/OpenGiethoorn
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -51,6 +54,10 @@ fi
 done
 }
 
+create-client() {
+// the client name is the argument
+VAR_CLIENTNAME=$1
+
 if [ ! $VAR_CLIENTNAME ]; then
 	get_var VAR_CLIENTNAME "An unique name for the new network client (No spaces or special characters allowed)", "([A-Za-z1-9!.\-][A-Za-z1-9!.\-]*)"
 fi
@@ -92,12 +99,17 @@ cp $GIETHOORN_CONF_DIR/client-info15.txt $GIETHOORN_CONF_DIR/open.vpn/
 cp $GIETHOORN_CONF_DIR/client-info15.txt $GIETHOORN_CONF_DIR/open.vpn/client.txt
 cp $GIETHOORN_CONF_DIR/client-info15.txt $GIETHOORN_CONF_DIR/open.vpn/master.txt
 tar -czf $VAR_CLIENTNAME.tgz open.vpn/
-rm open.vpn/rsa/*
-rmdir open.vpn/rsa
-rm open.vpn/*
-rmdir open.vpn
+rm -rf open.vpn/*
 
+}
 
+if [ "$1" ]; then
+for i in $@; do
+create-client $i
+done
+else
+create-client
+fi
 
 
 

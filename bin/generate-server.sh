@@ -1,6 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2014 JH de Wolff (jaap@de-wolff.org)
+# Copyright (C) 2014 JH de Wolff 
+#
+# This file is a part of the open-giethoorn project 
+#	http://github.com/de-wolff/OpenGiethoorn
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -68,13 +71,13 @@ uci set network.lan.ifname="$lan_ifname tap0"
 fi
 uci commit network
 
-#test for dhcp dns options
-if [ ! "$(uci show dhcp.lan.dhcp_option | grep =6)" ]; then
-uci add_list dhcp.lan.dhcp_option=6,$IP_ADDRESS
-fi
+#set unique domain name
+for i in $( uci show dhcp | grep domain= ) 
+do
+uci set $(awk -F= '{ print $0 }')=$VAR_COMMONNAME.local
+done 
 
 # open firewall for openvpn traffic
-
 write_firewall_openvpn_rule
 
 uci commit firewall

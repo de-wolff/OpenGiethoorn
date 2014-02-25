@@ -1,6 +1,9 @@
 #!/bin/sh
 #
-# Copyright (C) 2014 JH de Wolff (jaap@de-wolff.org)
+# Copyright (C) 2014 JH de Wolff 
+#
+# This file is a part of the open-giethoorn project 
+#	http://github.com/de-wolff/OpenGiethoorn
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -76,19 +79,6 @@ done
 #disable entry if no host info is available
 if [ ! "$VAR_HOST" ]; then
 uci set openvpn.$VAR_COMMONNAME.enabled=0
-else
-#add dns entry to dhcp table
-for i in $(uci get dhcp.lan.dhcp_option); do
-# search for dns entry
-if [ "$(echo $i | grep ^6 )" ]; then
-# look if address already inside
-if [ ! "$(echo $i | grep $VAR_CLIENT_IP )" ]; then
-uci del_list dhcp.lan.dhcp_option=$i
-uci add_list dhcp.lan.dhcp_option=$i,$VAR_CLIENT_IP
-uci commit dhcp
-fi
-fi
-done
 fi
 uci commit openvpn
 
@@ -111,6 +101,17 @@ if [ ! "$( cat $rt_tables | grep vpn$VAR_COUNT )" ]; then
 echo # create a table to route to $VAR_COMMONNAME in range $VAR_CLIENT_IPPART0/24 >> $rt_tables
 echo 1$VAR_COUNT vpn$VAR_COUNT >> $rt_tables
 fi
+
+# add the nameserver of the remote domain:
+for i in $( uci show dhcp | grep resolvfile= ) 
+do
+RESOLV_FILE=$( awk -F= '{ print $1 }' )
+if [ ! "$( grep $VAR_COMMONNAME.local $RESOLV_FILE )" ]; then
+echo # added by open-giethoorn >> $RESOLV_FILE
+echo nameserver $VAR_CLIENT_IP >> $RESOLV_FILE
+echo search $VAR_COMMONNAME.local >> $RESOLV_FILE
+fi
+done 
 
 # create shellfile to create tap devices
 
