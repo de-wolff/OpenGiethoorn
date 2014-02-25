@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# Copyright (C) 2014 JH de Wolff 
+#
+# This file is a part of the open-giethoorn project 
+#	http://github.com/de-wolff/OpenGiethoorn
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+GIETHOORN_DIR="/usr/share/open-giethoorn"
+GIETHOORN_BIN_DIR=$GIETHOORN_DIR/bin
+GIETHOORN_DATA_DIR=$GIETHOORN_DIR/data
+GIETHOORN_CONF_DIR=/etc/open-giethoorn
+
+CUR_DIR=$(pwd)
+usage() {
+
+echo usage:
+echo open-giethoorn add-master [name]
+echo	make from this machine an open-giethoorn master, wtih given name
+echo	-- remark --
+echo	Only one master can exist in the open-giethoorn network
+echo open-giethoorn add-client [name1] [name2] .. [name-n]
+echo	create an configuration file for the given client names
+echo	up to 14 clients can be added to the network
+echo 	the files will be created in $GIETHOORN_CONF_DIR 
+echo	and have the form name.tgz.
+echo	you can distribute those files by email to the
+echo	folks, you want to add to your network 
+echo configure-client /full/path/to/myname.tgz
+echo	use a file created by add-client on your
+echo 	client to configure it.
+}
+
+case $1 in
+service)
+$GIETHOORN_BIN_DIR/run-service.sh
+;;
+addmaster|add-master|AddMaster)
+shift
+$GIETHOORN_BIN_DIR/generate-master.sh $@
+;;
+addclient|add-client|AddClient)
+shift
+$GIETHOORN_BIN_DIR/add-client.sh $@
+;;
+configure-client|ConfigureClient)
+shift
+if [ !-f $1 ]; then
+usage
+else
+cp $1 $GIETHOORN_DATA_DIR/open-giethoorn.tgz
+$GIETHOORN_BIN_DIR/extract-opengiethoorn.sh $@
+fi
+;;
+*)
+usage
+;;
+esac
+
+cd $CUR_DIR
+
