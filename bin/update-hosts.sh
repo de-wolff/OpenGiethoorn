@@ -20,14 +20,14 @@ sleep 6000
 do
 #get our lease file
 LEASES=$(uci show dhcp | grep dnsmasq.*leasefile |awk -F= '{ print $2 }')
-cat $LEASE |awk '{ print $3" "$4 }' /www/leases.txt
+cat $LEASES |awk '{ print $3" "$4 }' >/www/leases.txt
 VAR_COUNT=0
 for i in `cat ${IMPORT}`
 do
 VAR_CLIENT_IP=`echo $i | awk -F, '{print $2}'`
 VAR_CLIENT_NAME=`echo $i | awk -F, '{print $1}'`
-rm /tmp/hosts.$VAR_CLIENT_NAME
-wget http://$VAR_CLIENT_IP/leases.txt -O /tmp/hosts.$VAR_CLIENT_NAME
+rm /tmp/hosts/$VAR_CLIENT_NAME
+wget http://$VAR_CLIENT_IP/leases.txt -O /tmp/hosts/$VAR_CLIENT_NAME
 done
 /etc/init.d/dnsmasq reload
 done

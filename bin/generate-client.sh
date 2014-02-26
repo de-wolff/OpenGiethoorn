@@ -102,10 +102,6 @@ echo # create a table to route to $VAR_COMMONNAME in range $VAR_CLIENT_IPPART0/2
 echo 1$VAR_COUNT vpn$VAR_COUNT >> $rt_tables
 fi
 
-# add the hostsfile of the remote domain to our lookup path:
-if [ ! "$( uci show dhcp.@dnsmasq[0].addnhost | grep \"hosts.${VAR_COMMONNAME}$\")" ]; then
-uci add_list dhcp.@dnsmasq[0].addnhost=hosts.$VAR_COMMONNAME
-fi
 # create shellfile to create tap devices
 
 SHELLFILE=$GIETHOORN_BIN_DIR/create-tap$VAR_COUNT.sh

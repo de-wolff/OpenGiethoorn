@@ -16,6 +16,7 @@ for proc in `jobs -p`
 do
 kill -9 $proc
 done
+exit
 }
 
 OPENVPN_DIR="/etc/openvpn"
