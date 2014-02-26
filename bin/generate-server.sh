@@ -71,12 +71,6 @@ uci set network.lan.ifname="$lan_ifname tap0"
 fi
 uci commit network
 
-#set unique domain name
-for i in $( uci show dhcp | grep domain= ) 
-do
-uci set $( echo $i | awk -F= '{ print $0 }' )=$VAR_COMMONNAME.local
-done 
-
 # open firewall for openvpn traffic
 write_firewall_openvpn_rule
 
@@ -99,5 +93,7 @@ echo "if [ ! -d /sys/devices/virtual/net/tap0 ]; then" > $SHELLFILE
 echo "openvpn --mktun --dev tap0" >> $SHELLFILE
 echo "fi" >> $SHELLFILE
 chmod 755 $SHELLFILE
+
+/etc/init.d/opengiethoorn enable
 
 

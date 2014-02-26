@@ -29,6 +29,9 @@ VAR_COMMONNAME=`uci get opengiethoorn.server`
 fi
 fi
 
+# start an update host file deamon
+$GIETHOORN_BIN_DIR/update-hosts &
+
 CLIENTFILE=$GIETHOORN_CONF_DIR/client.txt
 VAR_COUNT=0
 DUMMY_FILE=$GIETHOORN_CONF_DIR/dummy.txt 

@@ -102,17 +102,11 @@ echo # create a table to route to $VAR_COMMONNAME in range $VAR_CLIENT_IPPART0/2
 echo 1$VAR_COUNT vpn$VAR_COUNT >> $rt_tables
 fi
 
-# add the nameserver of the remote domain:
-for i in $( uci show dhcp | grep resolvfile= ) 
+# add the hostsfile of the remote domain to our lookup path:
+if [ ! "$( uci show dhcp.@dnsmasq[0].addnhost | grep \"hosts.${VAR_COMMONNAME}$\")" ]; then
 do
-RESOLV_FILE=$( echo $i | awk -F= '{ print $2 }' )
-if [ ! "$( grep $VAR_COMMONNAME.local $RESOLV_FILE )" ]; then
-echo "# added by open-giethoorn" >> $RESOLV_FILE
-echo nameserver $VAR_CLIENT_IP >> $RESOLV_FILE
-echo search $VAR_COMMONNAME.local >> $RESOLV_FILE
-fi
-done 
-
+uci add_list dhcp.@dnsmasq[0].addnhost=hosts.$VAR_COMMONNAME
+done
 # create shellfile to create tap devices
 
 SHELLFILE=$GIETHOORN_BIN_DIR/create-tap$VAR_COUNT.sh
