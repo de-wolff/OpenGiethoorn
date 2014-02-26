@@ -15,8 +15,6 @@ GIETHOORN_BIN_DIR=$GIETHOORN_DIR/bin
 GIETHOORN_DATA_DIR=$GIETHOORN_DIR/data
 OPENVPN_DIR="/etc/openvpn"
 
-mkdir -p $GIETHOORN_CONF_DIR
-
 OLD_DIR=`pwd`
 cd $GIETHOORN_CONF_DIR
 # find the openvpn-easy-rsa key dir.

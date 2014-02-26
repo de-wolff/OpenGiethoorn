@@ -49,7 +49,8 @@ if [ !-f $1 ]; then
 usage
 else
 shift
-cp $1 $GIETHOORN_DATA_DIR/open-giethoorn.tgz
+mkdir -p $GIETHOORN_CONF_DIR
+cp $1 $GIETHOORN_CONF_DIR/open-giethoorn.tgz
 shift
 $GIETHOORN_BIN_DIR/extract-opengiethoorn.sh $@
 fi
