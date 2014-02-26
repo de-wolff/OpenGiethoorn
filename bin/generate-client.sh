@@ -104,9 +104,8 @@ fi
 
 # add the hostsfile of the remote domain to our lookup path:
 if [ ! "$( uci show dhcp.@dnsmasq[0].addnhost | grep \"hosts.${VAR_COMMONNAME}$\")" ]; then
-do
 uci add_list dhcp.@dnsmasq[0].addnhost=hosts.$VAR_COMMONNAME
-done
+fi
 # create shellfile to create tap devices
 
 SHELLFILE=$GIETHOORN_BIN_DIR/create-tap$VAR_COUNT.sh
