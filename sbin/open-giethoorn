@@ -48,7 +48,6 @@ shift
 if [ !-f $1 ]; then
 usage
 else
-shift
 mkdir -p $GIETHOORN_CONF_DIR
 cp $1 $GIETHOORN_CONF_DIR/open-giethoorn.tgz
 shift
