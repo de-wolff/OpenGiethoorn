@@ -31,7 +31,7 @@ fi
 fi
 
 # start an update host file deamon
-$GIETHOORN_BIN_DIR/update-hosts &
+$GIETHOORN_BIN_DIR/update-hosts.sh &
 
 CLIENTFILE=$GIETHOORN_CONF_DIR/client.txt
 VAR_COUNT=0
