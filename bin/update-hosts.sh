@@ -15,8 +15,8 @@
 VAR_COMMONNAME=`uci get opengiethoorn.server`
 IMPORT="$GIETHOORN_CONF_DIR/client.txt"
 while true
-# wait 10 minutes
-sleep 6000
+# wait 5 minutes
+sleep 300
 do
 #get our lease file
 LEASES=$(uci show dhcp | grep dnsmasq.*leasefile |awk -F= '{ print $2 }')
@@ -29,5 +29,7 @@ VAR_CLIENT_NAME=`echo $i | awk -F, '{print $1}'`
 rm /tmp/hosts/$VAR_CLIENT_NAME
 wget http://$VAR_CLIENT_IP/leases.txt -O /tmp/hosts/$VAR_CLIENT_NAME
 done
-/etc/init.d/dnsmasq reload
+sleep 5
+/etc/init.d/dnsmasq stop
+/etc/init.d/dnsmasq start
 done
